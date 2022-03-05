@@ -1,0 +1,9 @@
+[package]
+name = "ruten-launcher"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+iced = { version = "0.3", features = ["image"] }
+iced_aw = { git = "https://github.com/iced-rs/iced_aw" }
+ruten-shared = { path = "../ruten-shared" }

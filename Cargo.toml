@@ -1,0 +1,12 @@
+[workspace]
+members =  [
+    "ruten-api",
+    "ruten-launcher",
+    "ruten-runtime",
+    "ruten-shared"
+]
+
+[profile.release-full]
+inherits = "release"
+lto = true
+opt-level = "s"

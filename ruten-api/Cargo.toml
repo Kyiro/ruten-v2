@@ -1,0 +1,9 @@
+[package]
+name = "ruten-api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+poem = "1.3.5"
+ruten-shared = { path = "../ruten-shared" }
+tokio = { version = "1", features = ["full"] }
