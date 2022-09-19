@@ -8,5 +8,6 @@ members =  [
 
 [profile.release-full]
 inherits = "release"
+strip = "symbols"
+codegen-units = 1
 lto = true
-opt-level = "s"

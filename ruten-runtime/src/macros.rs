@@ -1,25 +1,30 @@
 #[macro_export]
+macro_rules! cstr {
+    ($str:expr) => {
+        {
+            use std::ffi::CString;
+            CString::new("").unwrap().into_raw()
+        }
+    };
+}
+
+#[macro_export]
 macro_rules! define_app {
-    ($module:ident, $reason:ident, $reserved:ident, $start:block) => {
-        use minwindef::{BOOL, DWORD, HINSTANCE, LPVOID};
-        use winapi::shared::minwindef;
-        use winapi::um::winnt;
+    ($start:block) => {
+        use winapi::um::winnt::*;
 
         #[no_mangle]
         #[allow(unused_variables)]
-        extern "system" fn DllMain($module: HINSTANCE, $reason: DWORD, $reserved: LPVOID) -> BOOL {
-            match $reason {
-                winnt::DLL_PROCESS_ATTACH => {
-                    std::thread::spawn(move || $start);
+        extern "system" fn DllMain(module: HINSTANCE, reason: DWORD, reserved: LPVOID) -> BOOL {
+            match reason {
+                DLL_PROCESS_ATTACH => {
+                    #[allow(unused_unsafe)]
+                    unsafe {$start}
                 }
-                winnt::DLL_PROCESS_DETACH => (),
+                DLL_PROCESS_DETACH => (),
                 _ => (),
             }
-            minwindef::TRUE
+            TRUE
         }
-    };
-
-    ($start:block) => {
-        define_app!(module, reason, reserved, $start);
     };
 }

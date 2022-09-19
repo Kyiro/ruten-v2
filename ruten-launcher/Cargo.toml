@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-iced = { version = "0.3", features = ["image"] }
-iced_aw = { git = "https://github.com/iced-rs/iced_aw" }
+dioxus = { version = "0.2.4", features = ["desktop", "fermi", "router"] }
+dioxus-heroicons = "0.1.4"
+derive_more = "0.99"
+include-crypt = { version = "0.1.1", features = ["compression"] }
+jector = { git = "https://github.com/lewisclark/jector" }
+ruten-api = { path = "./../ruten-api" }
 ruten-shared = { path = "../ruten-shared" }
+serde = { version = "1", features = ["derive"] }

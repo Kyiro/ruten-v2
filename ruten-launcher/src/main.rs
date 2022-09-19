@@ -1,24 +1,26 @@
-use iced::{window, Sandbox, Settings};
+pub mod launcher;
+pub mod ui;
 
-pub mod app;
-pub mod launch;
+use dioxus::desktop::tao::window::Icon;
+use dioxus::desktop::tao::dpi::{PhysicalSize, Size};
 
-pub use app::App;
-
-fn main() -> iced::Result {
-    let mut settings = Settings::default();
-
-    settings.antialiasing = true;
-    settings.window.size = (800, 550);
-    settings.window.icon = if let Ok(icon) = window::Icon::from_rgba(
-        include_bytes!("./../resources/Ruten64.rgba").to_vec(),
-        64,
-        64,
-    ) {
-        Some(icon)
-    } else {
-        None
-    };
-
-    App::run(settings)
+fn main() {
+    dioxus::desktop::launch_cfg(
+        ui::app,
+        |c| {
+            c
+            .with_window(|w| {
+                w
+                .with_title("Ruten v2")
+                .with_transparent(true)
+                .with_decorations(true)
+                .with_inner_size(Size::Physical(PhysicalSize::new(920, 580)))
+            })
+            .with_icon(Icon::from_rgba(
+                include_bytes!("./../resources/Ruten64.rgba").to_vec(),
+                64,
+                64
+            ).unwrap())
+        }
+    );
 }
